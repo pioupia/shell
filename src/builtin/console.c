@@ -3,6 +3,7 @@
 //
 
 #include <unistd.h>
+#include <malloc.h>
 #include "../../includes/shell.h"
 
 void my_putchar(char str)
@@ -19,6 +20,16 @@ void my_putnchar(char *str)
     str[len] = '\n';
 
     write(STDOUT_FILENO, str, len + 1);
+}
+
+void print_user_name(char* username) {
+    char* start = my_strcat("\x1b[97m\x1b[46m", username);
+    char* end = my_strcat(start, "\033[0m");
+
+    my_putnchar(end);
+
+    free(start);
+    free(end);
 }
 
 void clear (void)

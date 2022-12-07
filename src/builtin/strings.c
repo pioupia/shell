@@ -22,6 +22,20 @@ char* my_strcpy(const char *str)
     return (cpy);
 }
 
+char* my_strcat(const char* str1, const char* str2) {
+    int first_len = my_len(str1);
+    int second_len = my_len(str2);
+
+    char *copy = malloc(sizeof(char) * (first_len + second_len + 1));
+
+    for (int i = 0; str1[i] || str2[i]; i++) {
+        if (i < first_len) copy[i] = str1[i];
+        if (i < second_len) copy[first_len + i] = str2[i];
+    }
+
+    return (copy);
+}
+
 int my_strcmp(char *string, char *string1) {
     string = my_strcpy(string);
     string1 = my_strcpy(string1);
