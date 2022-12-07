@@ -8,7 +8,7 @@ int main()
 {
     clear();
     char* username = get_user_name(environ);
-    my_putnchar(username);
 
+    print_user_name(username);
     return (0);
 }
