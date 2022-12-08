@@ -5,10 +5,21 @@
 #ifndef C_PROJECT_SHELL_H
 #define C_PROJECT_SHELL_H
 
+// Colors : https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+#define COLOR_WHITE_BRIGHT_FG   "\x1b[97m"
+#define COLOR_CYAN_BG   "\x1b[46m"
+#define COLOR_BOLD "\x1b[1m"
+#define COLOR_RESET   "\x1b[0m"
+#define SPACE_CHAR " "
+
+
+#define MAX_INPUT_LEN 10
+
 void clear(void);
 void my_putnchar(char*);
 void my_putchar(char);
 void print_user_name(char*);
+char* wait_input(void);
 
 int my_len(const char*);
 int my_strcmp(char*, char*);
@@ -16,6 +27,5 @@ char* my_strcpy(const char*);
 char* my_strcat(const char*, const char*);
 
 char* get_user_name(char**);
-
 
 #endif //C_PROJECT_SHELL_H
