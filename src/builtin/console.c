@@ -22,14 +22,49 @@ void my_putnchar(char *str)
     write(STDOUT_FILENO, str, len + 1);
 }
 
-void print_user_name(char* username) {
-    char* start = my_strcat("\x1b[97m\x1b[46m", username);
-    char* end = my_strcat(start, "\033[0m");
+void print_wobl(char *str) {
+    int len = my_len(str);
+    write(STDOUT_FILENO, str, len + 1);
+}
 
-    my_putnchar(end);
+void print_user_name(char* username)
+{
+    char* start = my_strcat(COLOR_BOLD COLOR_CYAN_BG COLOR_WHITE_BRIGHT_FG SPACE_CHAR, username);
+    char* end_style = my_strcat(start, SPACE_CHAR COLOR_RESET);
+    char* end = my_strcat(end_style, ":$ ");
+
+    print_wobl(end);
 
     free(start);
+    free(end_style);
     free(end);
+
+    wait_input();
+}
+
+char* wait_input (void)
+{
+    char* string = "";
+    char buff[MAX_INPUT_LEN + 1];
+    int partNum = 0;
+
+    while(1)
+    {
+        ssize_t bytesRead = read(STDIN_FILENO, buff, MAX_INPUT_LEN);
+
+        if(0 > bytesRead)
+        {
+            my_putnchar("read failed");
+            continue;
+        }
+
+        buff[bytesRead] = '\0';
+        partNum++;
+
+        if (buff[bytesRead - 1] == '\n') return string;
+
+        my_strcat(string, buff);
+    }
 }
 
 void clear (void)
