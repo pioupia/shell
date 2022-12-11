@@ -41,8 +41,9 @@ void print_user_name(char *username) {
     wait_input();
 }
 
-void wait_input(void) {
-    char *string = "";
+void wait_input (void)
+{
+    char* string = "";
     char buff[MAX_INPUT_LEN + 1];
     int partNum = 0;
 
