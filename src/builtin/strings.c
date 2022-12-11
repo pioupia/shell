@@ -46,3 +46,15 @@ int my_strcmp(char *string, char *string1) {
 
     return 1;
 }
+
+char* slice(const char* string, int start, int end) {
+    char* str = malloc(sizeof (char*) * (end - start));
+
+    for (int i = start; i < end && string[i]; i++) {
+        str[i - start] = string[i];
+    }
+
+    str[end] = '\0';
+
+    return str;
+}
