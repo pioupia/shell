@@ -6,6 +6,7 @@ SOURCES = src/main.c \
 				src/builtin/console.c \
 				src/builtin/env.c \
 				src/builtin/strings.c \
+				src/parser/parser.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

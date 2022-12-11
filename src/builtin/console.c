@@ -42,7 +42,7 @@ void print_user_name(char* username)
     wait_input();
 }
 
-char* wait_input (void)
+void wait_input (void)
 {
     char* string = "";
     char buff[MAX_INPUT_LEN + 1];
@@ -61,9 +61,11 @@ char* wait_input (void)
         buff[bytesRead] = '\0';
         partNum++;
 
-        if (buff[bytesRead - 1] == '\n') return string;
+        if (my_len(buff) < MAX_INPUT_LEN) {
+            return parse(my_strcat(string, buff));
+        }
 
-        my_strcat(string, buff);
+        string = my_strcat(string, buff);
     }
 }
 
