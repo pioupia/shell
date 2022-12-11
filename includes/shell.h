@@ -16,16 +16,19 @@
 #define MAX_INPUT_LEN 10
 
 void clear(void);
-void my_putnchar(char*);
+void my_putnchar(const char*);
 void my_putchar(char);
 void print_user_name(char*);
-char* wait_input(void);
+void wait_input(void);
 
 int my_len(const char*);
-int my_strcmp(char*, char*);
+int my_strcmp(const char*, const char*);
 char* my_strcpy(const char*);
 char* my_strcat(const char*, const char*);
+char* slice(const char*, int, int);
 
 char* get_user_name(char**);
+
+void parse(char*);
 
 #endif //C_PROJECT_SHELL_H

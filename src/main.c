@@ -1,3 +1,4 @@
+#include <malloc.h>
 #include "../includes/shell.h"
 
 // Declare the environment variable
@@ -10,5 +11,6 @@ int main()
     char* username = get_user_name(environ);
 
     print_user_name(username);
+    free(username);
     return (0);
 }

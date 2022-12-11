@@ -6,8 +6,10 @@
 #include "../../includes/shell.h"
 
 char* get_user_name (char **environment) {
-    char *arg = malloc(sizeof(char) * 4);
-    char *value;
+    char *arg = malloc(sizeof(char*) * 5);
+    char *value = "";
+
+    arg[4] = '\0';
 
     for (char **current = environment; *current; current++) {
         int step = 0;
@@ -18,7 +20,7 @@ char* get_user_name (char **environment) {
             if (step == 0) {
                 if (current[0][i] == '=' && my_strcmp(arg, "USER") == 0) {
                     step = 1;
-                    value = malloc(sizeof(char) * (len + 1));
+                    value = calloc(len, sizeof(char*));
                     start_index = i + 1;
                     continue;
                 } else if (i == 4) {
