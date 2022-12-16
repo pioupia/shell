@@ -43,9 +43,12 @@ void print_user_name(char *username) {
 
 void wait_input (void)
 {
-    char* string = "";
+    // test; coucou ---help --truc; pâté de foie gras; test truc de la mort qui pue
+    char* string = malloc(sizeof(char*) * 1);
+    string[0] = '\0';
+
     char buff[MAX_INPUT_LEN + 1];
-    int partNum = 0;
+
 
     while (1) {
         ssize_t bytesRead = read(STDIN_FILENO, buff, MAX_INPUT_LEN);
@@ -56,9 +59,8 @@ void wait_input (void)
         }
 
         buff[bytesRead] = '\0';
-        partNum++;
 
-        if (my_len(buff) < MAX_INPUT_LEN) {
+        if (buff[bytesRead - 1] == '\n') {
             parse(
                     my_strcat(string, buff)
             );
@@ -67,7 +69,7 @@ void wait_input (void)
             return;
         }
 
-        string = my_strcat(string, buff);
+        string = my_strcat_freeing(string, buff);
     }
 }
 

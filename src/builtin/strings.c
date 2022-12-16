@@ -28,7 +28,7 @@ char* my_strcat(const char* str1, const char* str2) {
 
     char *copy = calloc(first_len + second_len, sizeof(char*));
 
-    for (int i = 0; str1[i] || str2[i]; i++) {
+    for (int i = 0; i < first_len || i < second_len; i++) {
         if (i < first_len) copy[i] = str1[i];
         if (i < second_len) copy[first_len + i] = str2[i];
     }
@@ -36,6 +36,13 @@ char* my_strcat(const char* str1, const char* str2) {
     copy[first_len + second_len] = '\0';
 
     return (copy);
+}
+
+char* my_strcat_freeing(char* str1, const char* str2) {
+    char *str = my_strcat(str1, str2);
+    free(str1);
+
+    return (str);
 }
 
 int my_strcmp(const char *string, const char *string1) {
@@ -53,7 +60,7 @@ int my_strcmp(const char *string, const char *string1) {
 }
 
 char* slice(const char* string, int start, int end) {
-    char* str = malloc(sizeof (char*) * (end - start));
+    char* str = calloc(end - start, sizeof (char*));
 
     for (int i = start; i < end && string[i]; i++) {
         str[i - start] = string[i];
@@ -61,5 +68,5 @@ char* slice(const char* string, int start, int end) {
 
     str[end] = '\0';
 
-    return str;
+    return (str);
 }
