@@ -66,7 +66,5 @@ char* slice(const char* string, int start, int end) {
         str[i - start] = string[i];
     }
 
-    str[end] = '\0';
-
     return (str);
 }

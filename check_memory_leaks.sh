@@ -1,0 +1,1 @@
+make && valgrind --tool=memcheck --leak-check=yes --track-origins=yes --leak-check=full --show-leak-kinds=all -s ./shell
