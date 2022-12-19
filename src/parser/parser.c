@@ -5,10 +5,8 @@
 #include <malloc.h>
 #include "../../includes/shell.h"
 
-
 char **parse_args(char *string) {
     int args_count = 1;
-    int max_length_argument = 0;
     int actual_length_argument = 0;
 
     for (int i = 0; string[i]; i++) {
@@ -18,26 +16,32 @@ char **parse_args(char *string) {
         }
 
         if (string[i] == ' ' && actual_length_argument != 0) {
-            if (max_length_argument < actual_length_argument) {
-                max_length_argument = actual_length_argument;
-            }
-
             actual_length_argument = 0;
             args_count++;
         }
     }
 
-    // If we dont have a space after the last argument, he's not taken by the loop,
-    // So we add it manually.
-    if (max_length_argument < actual_length_argument) {
-        max_length_argument = actual_length_argument;
+    char** args = malloc((args_count + 1) * sizeof(char*));
+    actual_length_argument = 0;
+
+    args[args_count] = NULL;
+
+    for (int i = 0; string[i]; i++) {
+        if (string[i] != ' ') {
+            actual_length_argument++;
+            continue;
+        }
+
+        if (string[i] == ' ' && actual_length_argument != 0) {
+            args[i] = slice(string,  i - actual_length_argument, i);
+            my_putnchar(args[i]);
+            actual_length_argument = 0;
+        }
     }
 
-    free(string);
 
-    char *arr[] = {"test"};
-    char **strings = arr;
-    return (strings);
+    free(string);
+    return (args);
 }
 
 
@@ -66,9 +70,16 @@ void parse_commands(char *string) {
         return;
     }
 
-    parse_args(
+    char** arguments = parse_args(
             args
     );
+
+    for (int i = 0; arguments[i];) {
+        my_putnchar(arguments[i]);
+        free(arguments[i++]);
+    }
+
+    free(arguments);
 
     my_putnchar(command);
     free(command);
@@ -84,7 +95,6 @@ void parse(char *string) {
             index++;
         }
 
-        printf("Index: %d  ;; i : %d\n", index, i);
         char *sliced = slice(string, index, i);
         parse_commands(sliced);
 
