@@ -60,13 +60,13 @@ int my_strcmp(const char *string, const char *string1) {
 }
 
 char* slice(const char* string, int start, int end) {
-    char* str = calloc(end - start, sizeof (char*));
+    char* str = calloc(end - start + 1, sizeof (char));
 
+    str[end - start] = '\0';
     for (int i = start; i < end && string[i]; i++) {
         str[i - start] = string[i];
     }
 
-    str[end] = '\0';
 
     return (str);
 }

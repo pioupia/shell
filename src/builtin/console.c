@@ -43,7 +43,6 @@ void print_user_name(char *username) {
 
 void wait_input (void)
 {
-    // test; coucou ---help --truc; pâté de foie gras; test truc de la mort qui pue
     char* string = malloc(sizeof(char*) * 1);
     string[0] = '\0';
 
