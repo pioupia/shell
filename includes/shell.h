@@ -18,8 +18,8 @@
 void clear(void);
 void my_putnchar(const char*);
 void my_putchar(char);
-void print_user_name(char*);
-void wait_input(void);
+int print_user_name(char*);
+int wait_input(void);
 
 int my_len(const char*);
 int my_strcmp(const char*, const char*);
@@ -30,6 +30,6 @@ char* slice(const char*, int, int);
 
 char* get_user_name(char**);
 
-void parse(char*);
+int parse(char*);
 
 #endif //C_PROJECT_SHELL_H

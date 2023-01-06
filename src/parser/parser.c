@@ -5,7 +5,8 @@
 #include <malloc.h>
 #include "../../includes/shell.h"
 
-char** parse_args(const char* string) {
+char** parse_args(const char* string)
+{
     // Allouer un tableau de chaînes de caractères assez grande pour accueillir tous les arguments
     const int max_arguments = 10;
     char **args = calloc(max_arguments, sizeof(char *));
@@ -65,7 +66,8 @@ char** parse_args(const char* string) {
 }
 
 
-void parse_commands(char *string) {
+int parse_commands(char *string)
+{
     char *command = "";
     char *args;
     int step = 0;
@@ -87,7 +89,25 @@ void parse_commands(char *string) {
 
     if (step == 0) {
         my_putnchar(string);
-        return;
+
+        if (my_strcmp(string, "exit") == 1) {
+            my_putnchar("Good bye ! 1");
+            return 1;
+        }
+
+        if (my_strcmp(string, "clear") == 1) {
+            clear();
+        }
+
+        return 0;
+    }
+
+    if (my_strcmp(command, "exit") == 1) {
+        free(args);
+        free(command);
+
+        my_putnchar("Good bye !");
+        return 1;
     }
 
     char** arguments = parse_args(
@@ -104,20 +124,28 @@ void parse_commands(char *string) {
 
     my_putnchar(command);
     free(command);
+    return (0);
 }
 
-void parse(char *string) {
+int parse(char *string)
+{
     int index = 0;
 
     for (int i = 0; string[i]; i++) {
         if (string[i] != ';' && string[i + 1] != '\0') continue;
 
+        char *sliced = slice(string, index, i);
+        int status = parse_commands(sliced);
+
         if (string[i + 1] == '\0') {
             index++;
         }
 
-        char *sliced = slice(string, index, i);
-        parse_commands(sliced);
+        if (status == 1) {
+            free(sliced);
+            free(string);
+            return 1;
+        }
 
         free(sliced);
 
@@ -125,4 +153,6 @@ void parse(char *string) {
     }
 
     free(string);
+
+    return 0;
 }

@@ -18,6 +18,8 @@ char* get_user_name (char **environment) {
 
         for (int i = 0; current[0][i]; i++) {
             if (step == 0) {
+                my_putnchar(arg);
+                my_putnchar("USER");
                 if (current[0][i] == '=' && my_strcmp(arg, "USER") == 0) {
                     step = 1;
                     value = calloc(len, sizeof(char*));
