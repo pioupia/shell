@@ -10,7 +10,8 @@ int main()
     clear();
     char* username = get_user_name(environ);
 
-    print_user_name(username);
+    while (print_user_name(username) == 0);
+
     free(username);
     return (0);
 }

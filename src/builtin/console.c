@@ -26,7 +26,7 @@ void print_wobl(char *str) {
     write(STDOUT_FILENO, str, len + 1);
 }
 
-void print_user_name(char *username) {
+int print_user_name(char *username) {
     char *start = my_strcat(COLOR_BOLD COLOR_CYAN_BG COLOR_WHITE_BRIGHT_FG SPACE_CHAR,
                             username);
     char *end_style = my_strcat(start, SPACE_CHAR COLOR_RESET);
@@ -38,10 +38,10 @@ void print_user_name(char *username) {
     free(end_style);
     free(end);
 
-    wait_input();
+    return wait_input();
 }
 
-void wait_input (void)
+int wait_input (void)
 {
     char* string = malloc(sizeof(char*) * 1);
     string[0] = '\0';
@@ -60,16 +60,19 @@ void wait_input (void)
         buff[bytesRead] = '\0';
 
         if (buff[bytesRead - 1] == '\n') {
-            parse(
+            int status = parse(
                     my_strcat(string, buff)
             );
 
             free(string);
-            return;
+
+            return status;
         }
 
         string = my_strcat_freeing(string, buff);
     }
+
+    return 0;
 }
 
 void clear(void) {

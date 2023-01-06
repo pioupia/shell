@@ -49,14 +49,13 @@ int my_strcmp(const char *string, const char *string1) {
     int first_len = my_len(string);
     int second_len = my_len(string1);
 
-    if (first_len != second_len) return 0;
+    if (first_len != second_len) return -1;
 
-
-    for (int i = 0; string[i] == string1[i]; i++) {
-        if (!string1[i] && !string[i]) return 0;
+    for (int i = 0; i < first_len; i++) {
+        if (string[i] != string1[i]) return -1;
     }
 
-    return 1;
+    return 0;
 }
 
 char* slice(const char* string, int start, int end) {
