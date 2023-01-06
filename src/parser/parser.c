@@ -90,19 +90,19 @@ int parse_commands(char *string)
     if (step == 0) {
         my_putnchar(string);
 
-        if (my_strcmp(string, "exit") == 1) {
-            my_putnchar("Good bye ! 1");
+        if (my_strcmp(string, "exit") == 0) {
+            my_putnchar("Good bye !");
             return 1;
         }
 
-        if (my_strcmp(string, "clear") == 1) {
+        if (my_strcmp(string, "clear") == 0) {
             clear();
         }
 
         return 0;
     }
 
-    if (my_strcmp(command, "exit") == 1) {
+    if (my_strcmp(command, "exit") == 0) {
         free(args);
         free(command);
 
