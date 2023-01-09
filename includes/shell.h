@@ -28,7 +28,7 @@ char* my_strcat(const char*, const char*);
 char* my_strcat_freeing(char*, const char*);
 char* slice(const char*, int, int);
 
-char* get_user_name(char**);
+void parsing_env_variable(char**, char**, char**, char**);
 
 int parse(char*);
 
