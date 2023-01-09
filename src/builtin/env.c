@@ -5,40 +5,48 @@
 #include <malloc.h>
 #include "../../includes/shell.h"
 
-char* get_user_name (char **environment) {
-    char *arg = malloc(sizeof(char*) * 5);
-    char *value = "";
+
+void parsing_env_variable(char **environment, char **username, char **home, char **pwd) {
+    char *arg = malloc(sizeof(char *) * 5);
+    char *arg_pwd = calloc(3, sizeof(char *));
 
     arg[4] = '\0';
+    arg_pwd[3] = '\0';
 
     for (char **current = environment; *current; current++) {
         int step = 0;
         int len = my_len(*current);
-        int start_index = 0;
 
         for (int i = 0; current[0][i]; i++) {
-            if (step == 0) {
-                if (current[0][i] == '=' && my_strcmp(arg, "USER") == 0) {
-                    step = 1;
-                    value = calloc(len, sizeof(char*));
-                    start_index = i + 1;
-                    continue;
-                } else if (i == 4) {
-                    break;
+            if (step == 3) break;
+
+            if (current[0][i] == '=') {
+                if (my_strcmp(arg, "USER") == 0) {
+                    step++;
+                    *username = slice(*current, 5, len);
+                } else if (my_strcmp(arg, "HOME") == 0) {
+                    step++;
+                    *home = slice(*current, 5, len);
+                } else if (my_strcmp(arg_pwd, "PWD") == 0) {
+                    step++;
+                    *pwd = slice(*current, 4, len);
                 }
-                arg[i] = current[0][i];
                 continue;
+            } else if (i == 4) {
+                break;
             }
 
-            value[i - start_index] = current[0][i];
+            if (i < 4)
+                arg[i] = current[0][i];
+            if (i < 3)
+                arg_pwd[i] = current[0][i];
         }
 
-        if (step == 1)
+        if (step == 3)
             break;
     }
 
     // Free the memory of the argument.
     free(arg);
-
-    return value;
+    free(arg_pwd);
 }
