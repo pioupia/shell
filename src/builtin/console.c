@@ -36,8 +36,8 @@ char* get_relative_path(const char* pwd, const char* home) {
         return my_strcpy(pwd);
     }
 
-    char* path = slice(pwd, i, my_len(pwd));
-    char* result = my_strcat("~", path);
+    char *path = slice(pwd, i, my_len(pwd));
+    char *result = my_strcat("~", path, NULL);
 
     free(path);
     return result;
@@ -45,24 +45,19 @@ char* get_relative_path(const char* pwd, const char* home) {
 
 int processing_command(char *username, char* pwd, char* home) {
     char* relative_path = get_relative_path(pwd, home);
-    char *start = my_strcat(COLOR_BOLD COLOR_CYAN_BG COLOR_WHITE_BRIGHT_FG SPACE_CHAR,
-                            username);
-    char *end_style = my_strcat(start, SPACE_CHAR COLOR_RESET);
-    char *points = my_strcat(end_style, ":");
-    char *with_path_style = my_strcat(points, COLOR_CYAN_FG);
-    char *with_path = my_strcat(with_path_style, relative_path);
-    char *with_path_style_end = my_strcat(with_path, COLOR_RESET);
-    char* end = my_strcat(with_path_style_end, "$ ");
+    char *prompt = my_strcat(COLOR_BOLD COLOR_CYAN_BG COLOR_WHITE_BRIGHT_FG SPACE_CHAR,
+                             username,
+                             SPACE_CHAR COLOR_RESET,
+                             ":",
+                             COLOR_CYAN_FG,
+                             relative_path,
+                             COLOR_RESET,
+                             "$ ",
+                             NULL);
 
-    print_wobl(end);
+    print_wobl(prompt);
 
-    free(start);
-    free(end_style);
-    free(points);
-    free(with_path_style);
-    free(with_path);
-    free(with_path_style_end);
-    free(end);
+    free(prompt);
     free(relative_path);
 
     return wait_input();
@@ -88,7 +83,7 @@ int wait_input (void)
 
         if (buff[bytesRead - 1] == '\n') {
             int status = parse(
-                    my_strcat(string, buff)
+                    my_strcat(string, buff, NULL)
             );
 
             free(string);

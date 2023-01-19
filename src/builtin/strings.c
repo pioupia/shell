@@ -2,6 +2,8 @@
 // Created by pioupia on 06/12/22.
 //
 #include <malloc.h>
+#include <stdarg.h>
+#include "../../includes/shell.h"
 
 int my_len(const char *str)
 {
@@ -22,7 +24,7 @@ char* my_strcpy(const char *str)
     return (cpy);
 }
 
-char* my_strcat(const char* str1, const char* str2) {
+char* concat(const char* str1, const char* str2) {
     int first_len = my_len(str1);
     int second_len = my_len(str2);
 
@@ -38,8 +40,29 @@ char* my_strcat(const char* str1, const char* str2) {
     return (copy);
 }
 
+char* my_strcat(const char* strings, ...) {
+    char* result = my_strcpy(strings);
+
+    va_list args;
+    va_start(args, strings);
+
+    const char *current_arg = va_arg(args, const char*);
+    while (current_arg) {
+        char* temp_result = concat(result, current_arg);
+        free(result);
+
+        result = temp_result;
+
+        current_arg = va_arg(args, const char*);
+    }
+
+    va_end(args);
+
+    return result;
+}
+
 char* my_strcat_freeing(char* str1, const char* str2) {
-    char *str = my_strcat(str1, str2);
+    char *str = my_strcat(str1, str2, NULL);
     free(str1);
 
     return (str);
