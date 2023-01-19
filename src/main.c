@@ -13,11 +13,7 @@ int main()
     char* pwd = NULL;
     parsing_env_variable(environ, &username, &home, &pwd);
 
-    my_putnchar(username);
-    my_putnchar(home);
-    my_putnchar(pwd);
-
-    while (print_user_name(username) == 0);
+    while (processing_command(username, pwd, home) == 0);
 
     free(username);
     free(home);
