@@ -88,8 +88,6 @@ int parse_commands(char *string)
     }
 
     if (step == 0) {
-        my_putnchar(string);
-
         if (my_strcmp(string, "exit") == 0) {
             my_putnchar("Good bye !");
             return 1;
@@ -115,14 +113,12 @@ int parse_commands(char *string)
     );
 
     for (int i = 0; arguments[i];) {
-        my_putnchar(arguments[i]);
         free(arguments[i++]);
     }
 
     free(arguments);
     free(args);
 
-    my_putnchar(command);
     free(command);
     return (0);
 }

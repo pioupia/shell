@@ -26,17 +26,44 @@ void print_wobl(char *str) {
     write(STDOUT_FILENO, str, len + 1);
 }
 
-int print_user_name(char *username) {
+char* get_relative_path(const char* pwd, const char* home) {
+    int i = 0;
+
+    while (pwd[i] == home[i])
+        i++;
+
+    if (i <= 1) {
+        return my_strcpy(pwd);
+    }
+
+    char* path = slice(pwd, i, my_len(pwd));
+    char* result = my_strcat("~", path);
+
+    free(path);
+    return result;
+}
+
+int processing_command(char *username, char* pwd, char* home) {
+    char* relative_path = get_relative_path(pwd, home);
     char *start = my_strcat(COLOR_BOLD COLOR_CYAN_BG COLOR_WHITE_BRIGHT_FG SPACE_CHAR,
                             username);
     char *end_style = my_strcat(start, SPACE_CHAR COLOR_RESET);
-    char *end = my_strcat(end_style, ":$ ");
+    char *points = my_strcat(end_style, ":");
+    char *with_path_style = my_strcat(points, COLOR_CYAN_FG);
+    char *with_path = my_strcat(with_path_style, relative_path);
+    char *with_path_style_end = my_strcat(with_path, COLOR_RESET);
+    char* end = my_strcat(with_path_style_end, "$ ");
 
     print_wobl(end);
 
     free(start);
     free(end_style);
+    free(points);
+    free(with_path_style);
+    free(with_path);
+    free(with_path_style_end);
     free(end);
+    free(relative_path);
 
     return wait_input();
 }
