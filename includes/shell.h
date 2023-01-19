@@ -25,7 +25,7 @@ int wait_input(void);
 int my_len(const char*);
 int my_strcmp(const char*, const char*);
 char* my_strcpy(const char*);
-char* my_strcat(const char*, const char*);
+char* my_strcat(const char*, ...);
 char* my_strcat_freeing(char*, const char*);
 char* slice(const char*, int, int);
 
