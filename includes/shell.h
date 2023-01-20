@@ -8,6 +8,7 @@
 // Colors : https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 #define COLOR_WHITE_BRIGHT_FG   "\x1b[97m"
 #define COLOR_CYAN_BG           "\x1b[46m"
+#define COLOR_YELLOW_FG         "\x1b[33m"
 #define COLOR_CYAN_FG           "\x1b[96m"
 #define COLOR_BOLD              "\x1b[1m"
 #define COLOR_RESET             "\x1b[0m"
@@ -19,7 +20,7 @@
 void clear(void);
 void my_putnchar(const char*);
 void my_putchar(char);
-int processing_command(char*, char*, char*);
+int processing_command(char*, char*, char*, char*);
 int wait_input(void);
 
 int my_len(const char*);
