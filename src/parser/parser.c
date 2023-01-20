@@ -66,7 +66,7 @@ char** parse_args(const char* string)
 }
 
 
-int parse_commands(char *string)
+int parse_commands(char *string, char *pwd)
 {
     char *command = "";
     char *args;
@@ -97,6 +97,10 @@ int parse_commands(char *string)
             clear();
         }
 
+        if (my_strcmp(string, "pwd") == 0) {
+            my_putnchar(pwd);
+        }
+
         return 0;
     }
 
@@ -123,7 +127,7 @@ int parse_commands(char *string)
     return (0);
 }
 
-int parse(char *string)
+int parse(char *string, char *pwd)
 {
     int index = 0;
 
@@ -131,7 +135,7 @@ int parse(char *string)
         if (string[i] != ';' && string[i + 1] != '\0') continue;
 
         char *sliced = slice(string, index, i);
-        int status = parse_commands(sliced);
+        int status = parse_commands(sliced, pwd);
 
         if (string[i + 1] == '\0') {
             index++;
