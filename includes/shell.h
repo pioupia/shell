@@ -21,7 +21,7 @@ void clear(void);
 void my_putnchar(const char*);
 void my_putchar(char);
 int processing_command(char*, char*, char*, char*);
-int wait_input(void);
+int wait_input(char*);
 
 int my_len(const char*);
 int my_strcmp(const char*, const char*);
@@ -32,6 +32,6 @@ char* slice(const char*, int, int);
 
 void parsing_env_variable(char**, char**, char**, char**);
 
-int parse(char*);
+int parse(char*, char*);
 
 #endif //C_PROJECT_SHELL_H

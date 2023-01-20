@@ -62,10 +62,10 @@ int processing_command(char *username, char* pwd, char* home, char* hostname) {
     free(prompt);
     free(relative_path);
 
-    return wait_input();
+    return wait_input(pwd);
 }
 
-int wait_input (void)
+int wait_input (char *pwd)
 {
     char* string = malloc(sizeof(char*) * 1);
     string[0] = '\0';
@@ -85,7 +85,8 @@ int wait_input (void)
 
         if (buff[bytesRead - 1] == '\n') {
             int status = parse(
-                    my_strcat(string, buff, NULL)
+                    my_strcat(string, buff, NULL),
+                    pwd
             );
 
             free(string);
