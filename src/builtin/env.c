@@ -18,7 +18,7 @@ void parsing_env_variable(char **environment, char **username, char **home, char
         int len = my_len(*current);
 
         for (int i = 0; current[0][i]; i++) {
-            if (step == 3) break;
+            if (step == 4) break;
 
             if (current[0][i] == '=') {
                 if (my_strcmp(arg, "USER") == 0) {

@@ -43,11 +43,13 @@ char* get_relative_path(const char* pwd, const char* home) {
     return result;
 }
 
-int processing_command(char *username, char* pwd, char* home) {
+int processing_command(char *username, char* pwd, char* home, char* hostname) {
     char* relative_path = get_relative_path(pwd, home);
-    char *prompt = my_strcat(COLOR_BOLD COLOR_CYAN_BG COLOR_WHITE_BRIGHT_FG SPACE_CHAR,
+    char *prompt = my_strcat(COLOR_BOLD COLOR_YELLOW_FG,
                              username,
-                             SPACE_CHAR COLOR_RESET,
+                             "@",
+                             hostname,
+                             COLOR_RESET,
                              ":",
                              COLOR_CYAN_FG,
                              relative_path,
