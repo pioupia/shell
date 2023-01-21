@@ -8,6 +8,7 @@ SOURCES = src/main.c \
 				src/builtin/strings.c \
 				src/parser/parser.c
 
+
 OBJECTS = $(SOURCES:.c=.o)
 
 all : $(NAME)
