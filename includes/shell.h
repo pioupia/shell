@@ -15,7 +15,8 @@
 #define SPACE_CHAR                 " "
 
 
-#define MAX_INPUT_LEN 10
+#define MAX_INPUT_LEN               10
+#define CHILD_PROCESS_ERROR         (-1)
 
 void clear(void);
 void my_putnchar(const char*);
@@ -33,5 +34,7 @@ char* slice(const char*, int, int);
 void parsing_env_variable(char**, char**, char**, char**);
 
 int parse(char*, char*);
+
+int my_exec(char*, char**, char**);
 
 #endif //C_PROJECT_SHELL_H

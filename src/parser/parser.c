@@ -8,7 +8,7 @@
 char** parse_args(const char* string)
 {
     // Allouer un tableau de chaînes de caractères assez grande pour accueillir tous les arguments
-    const int max_arguments = 10;
+    const int max_arguments = 11;
     char **args = calloc(max_arguments, sizeof(char *));
 
     // Allouer une chaîne de caractères pour stocker temporairement un argument en cours de traitement
@@ -24,7 +24,7 @@ char** parse_args(const char* string)
             argument_length++;
 
             // Si le argument en cours de traitement est trop long, libérer la mémoire et retourner un message d'erreur
-            if (argument_length >= max_argument_length) {
+            if (argument_length >= max_argument_length - 1) {
                 free(argument);
                 for (int j = 0; j < argument_index; j++) {
                     free(args[j]);
@@ -59,6 +59,8 @@ char** parse_args(const char* string)
         args[argument_index] = my_strcpy(argument);
         argument_index++;
     }
+
+    args[argument_index] = NULL;
 
     free(argument);
 
@@ -95,11 +97,17 @@ int parse_commands(char *string, char *pwd)
 
         if (my_strcmp(string, "clear") == 0) {
             clear();
+            return 0;
         }
 
-        if (my_strcmp(string, "pwd") == 0) {
-            my_putnchar(pwd);
-        }
+        char *argv[] = { NULL };
+        char *environ[] = { pwd, NULL };
+
+        char *file_name = my_strcat("./src/commands/", string, ".o", NULL);
+
+        my_exec(file_name, argv, environ);
+
+        free(file_name);
 
         return 0;
     }
@@ -136,10 +144,6 @@ int parse(char *string, char *pwd)
 
         char *sliced = slice(string, index, i);
         int status = parse_commands(sliced, pwd);
-
-        if (string[i + 1] == '\0') {
-            index++;
-        }
 
         if (status == 1) {
             free(sliced);
