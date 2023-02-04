@@ -119,7 +119,7 @@ int parse_commands(char *string, char *pwd)
 
     char *environ[] = { pwd, NULL };
 
-    char *file_name = my_strcat("./src/commands/", string, ".o", NULL);
+    char *file_name = my_strcat("./src/commands/", command, ".o", NULL);
 
     my_exec(file_name, arguments, environ);
 
