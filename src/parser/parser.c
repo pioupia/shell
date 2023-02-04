@@ -71,6 +71,7 @@ char** parse_args(const char* string)
 int parse_commands(char *string, char *pwd)
 {
     char *command = "";
+    char** arguments;
     char *args;
     int step = 0;
     int first_char = 0;
@@ -90,47 +91,45 @@ int parse_commands(char *string, char *pwd)
     }
 
     if (step == 0) {
-        if (my_strcmp(string, "exit") == 0) {
-            my_putnchar("Good bye !");
-            return 1;
-        }
+        command = my_strcpy(string);
+        arguments = calloc(1, sizeof(char *));
+        arguments[0] = NULL;
 
-        if (my_strcmp(string, "clear") == 0) {
-            clear();
-            return 0;
-        }
-
-        char *argv[] = { NULL };
-        char *environ[] = { pwd, NULL };
-
-        char *file_name = my_strcat("./src/commands/", string, ".o", NULL);
-
-        my_exec(file_name, argv, environ);
-
-        free(file_name);
-
-        return 0;
+        args = NULL;
+    } else {
+        arguments = parse_args(
+                args
+        );
     }
 
     if (my_strcmp(command, "exit") == 0) {
-        free(args);
+        if (args != NULL) free(args);
         free(command);
+
+        for (int i = 0; arguments[i];) {
+            free(arguments[i++]);
+        }
+
+        free(arguments);
+
 
         my_putnchar("Good bye !");
         return 1;
     }
 
-    char** arguments = parse_args(
-            args
-    );
+    char *environ[] = { pwd, NULL };
+
+    char *file_name = my_strcat("./src/commands/", string, ".o", NULL);
+
+    my_exec(file_name, arguments, environ);
 
     for (int i = 0; arguments[i];) {
         free(arguments[i++]);
     }
 
+    if (args != NULL) free(args);
+    free(file_name);
     free(arguments);
-    free(args);
-
     free(command);
     return (0);
 }
