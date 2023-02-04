@@ -1,17 +1,15 @@
-#include <malloc.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "../includes/shell.h"
 
 // Declare the environment variable
 extern char **environ;
 
-
-int main()
-{
+int main(void) {
     clear();
-    char* username = NULL;
-    char* home = NULL;
-    char* pwd = NULL;
+    char *username = NULL;
+    char *home = NULL;
+    char *pwd = NULL;
 
     char hostname[1024];
     hostname[1023] = '\0';
