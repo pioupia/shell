@@ -4,4 +4,4 @@ project(C_project C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(C_project
-        src/main.c includes/shell.h src/builtin/console.c src/builtin/strings.c src/builtin/env.c src/parser/parser.c src/builtin/exec.c)
+        src/main.c includes/shell.h src/builtin/console.c src/builtin/strings.c src/builtin/env.c src/parser/parser.c src/builtin/exec.c src/commands/ls.c)
